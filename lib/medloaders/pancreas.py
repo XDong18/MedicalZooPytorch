@@ -180,7 +180,7 @@ class Pancreas(Dataset):
 
             train_split_list = self.train_img_list[:self.split_id]
             # list_IDsT2 = list_IDsT2[:split_id]
-            label_split_list = self.train_seg_list[:split_id]
+            label_split_list = self.train_seg_list[:self.split_id]
 
             self.list = create_sub_volumes(train_split_list, label_split_list, dataset_name="pancreas",
                                            mode=self.mode, samples=self.samples, full_vol_dim=self.full_vol_dim,
@@ -191,8 +191,8 @@ class Pancreas(Dataset):
 
         elif self.mode == 'val':
             # utils.make_dirs(self.sub_vol_path)
-            train_split_list = self.train_img_list[split_id:]
-            label_split_list = self.train_seg_list[split_id:]
+            train_split_list = self.train_img_list[self.split_id:]
+            label_split_list = self.train_seg_list[self.split_id:]
             self.list = create_sub_volumes(train_split_list, label_split_list, dataset_name="pancreas",
                                            mode=self.mode, samples=self.samples, full_vol_dim=self.full_vol_dim,
                                            crop_size=self.crop_size,
