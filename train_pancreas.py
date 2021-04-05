@@ -7,7 +7,7 @@ import lib.medloaders as medical_loaders
 import lib.medzoo as medzoo
 import lib.train as train
 import lib.utils as utils
-from lib.losses3D import DiceLoss
+from lib.losses3D import DiceLoss, BCEDiceLoss
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 seed = 1777777

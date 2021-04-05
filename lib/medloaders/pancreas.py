@@ -117,19 +117,18 @@ class Pancreas(Dataset):
 
         self.full_volume = None
     
-        # self.save_name = self.root + '/iseg_2017/iSeg-2017-Training/iseg2017-list-' + mode + '-samples-' + str(
-        #     samples) + '.txt'
+        self.save_name = self.root + '/pancreas-list-' + mode + '-samples-' + str(samples) + '.txt'
         if self.augmentation:
             self.transform = augment3D.RandomChoice(
                 transforms=[augment3D.GaussianNoise(mean=0, std=0.01), augment3D.RandomFlip(),
                             augment3D.ElasticTransform()], p=0.5)
         
-        # if load:
-        #     ## load pre-generated data
-        #     self.list = utils.load_list(self.save_name)
-        #     list_IDsT1 = sorted(glob.glob(os.path.join(self.training_path, '*T1.img')))
-        #     self.affine = img_loader.load_affine_matrix(list_IDsT1[0])
-        #     return
+        if load:
+            ## load pre-generated data
+            self.list = utils.load_list(self.save_name)
+            self._load_data_annotations(args.anno_file)
+            self.affine = img_loader.load_affine_matrix(train_img_list[0])
+            return
         
         self._load_data_annotations(args.anno_file)
         self.affine = img_loader.load_affine_matrix(self.train_img_list[0])
@@ -139,6 +138,7 @@ class Pancreas(Dataset):
         self.sub_vol_path = self.root + '/generated/' + mode + subvol + '/' 
         utils.make_dirs(self.sub_vol_path)
         self._make_sub_volume_list()
+        utils.save_list(self.save_name, self.list)
     
     def __len__(self):
         return len(self.list)
