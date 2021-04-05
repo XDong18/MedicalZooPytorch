@@ -135,7 +135,7 @@ class Pancreas(Dataset):
         self.affine = img_loader.load_affine_matrix(self.train_img_list[0])
 
         # make sub volume list
-        subvol = '_vol_' + str(self.crop_size[0]) + 'x' + str(elf.crop_size[1]) + 'x' + str(elf.crop_size[2])
+        subvol = '_vol_' + str(self.crop_size[0]) + 'x' + str(self.crop_size[1]) + 'x' + str(self.crop_size[2])
         self.sub_vol_path = self.root + '/generated/' + mode + subvol + '/' 
         utils.make_dirs(self.sub_vol_path)
         self._make_sub_volume_list()
