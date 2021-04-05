@@ -20,7 +20,7 @@ def main():
     utils.make_dirs(args.save)
 
     training_generator, val_generator, full_volume, affine = medical_loaders.generate_datasets(args,
-                                                                                               path='.././datasets')
+                                                                                               path=args.path)
     model, optimizer = medzoo.create_model(args)
     criterion = BCEDiceLoss(classes=args.classes)
 
@@ -64,6 +64,7 @@ def get_arguments():
                         choices=('sgd', 'adam', 'rmsprop'))
     parser.add_argument('--log_dir', type=str,
                         default='../runs/')
+    parser.add_argument('--path', type=str)
 
     args = parser.parse_args()
 
