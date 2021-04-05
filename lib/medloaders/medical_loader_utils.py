@@ -1,6 +1,6 @@
 from lib.medloaders import medical_image_process as img_loader
 from lib.visual3D_temp import *
-import tqdm
+from tqdm import tqdm
 import nibabel as nib
 
 
