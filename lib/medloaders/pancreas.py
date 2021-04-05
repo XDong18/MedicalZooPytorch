@@ -9,7 +9,6 @@ import json
 
 import nibabel as nib
 
-import transform
 
 import glob
 import os
