@@ -94,7 +94,6 @@ from lib.medloaders.medical_loader_utils import get_viz_set, create_sub_volumes
 class Pancreas(Dataset):
     def __init__(args,
                 mode,
-                anno_file,
                 crop_dim=(32, 32, 32),
                 split_id=1,
                 samples=1000,
@@ -132,7 +131,7 @@ class Pancreas(Dataset):
         #     self.affine = img_loader.load_affine_matrix(list_IDsT1[0])
         #     return
         
-        self._load_data_annotations(anno_file)
+        self._load_data_annotations(args.anno_file)
         self.affine = img_loader.load_affine_matrix(self.train_img_list[0])
 
         # make sub volume list
