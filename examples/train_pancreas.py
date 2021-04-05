@@ -65,6 +65,7 @@ def get_arguments():
     parser.add_argument('--log_dir', type=str,
                         default='../runs/')
     parser.add_argument('--path', type=str)
+    parser.add_argument('--anno_file', type=str)
 
     args = parser.parse_args()
 
