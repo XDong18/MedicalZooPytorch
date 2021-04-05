@@ -95,7 +95,7 @@ def create_sub_volumes(*ls, dataset_name, mode, samples, full_vol_dim, crop_size
         # print(sample_paths)
         while True:
             label_path = sample_paths[-1]
-            new_full_vol_dim = nib.load(path).shape
+            new_full_vol_dim = nib.load(label_path).shape
             crop = find_random_crop_dim(new_full_vol_dim, crop_size)
             full_segmentation_map = img_loader.load_medical_image(label_path, viz3d=True, type='label',
                                                                   crop_size=crop_size,
