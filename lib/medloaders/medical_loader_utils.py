@@ -1,5 +1,7 @@
 from lib.medloaders import medical_image_process as img_loader
 from lib.visual3D_temp import *
+import tqdm
+import nibabel as nib
 
 
 def get_viz_set(*ls, dataset_name, test_subject=0, save=False, sub_vol_path=None):
@@ -83,7 +85,7 @@ def create_sub_volumes(*ls, dataset_name, mode, samples, full_vol_dim, crop_size
     # print(ls[2])
 
     print('Mode: ' + mode + ' Subvolume samples to generate: ', samples, ' Volumes: ', total)
-    for i in range(samples):
+    for i in tqdm(range(samples)):
         # print(i)
         random_index = np.random.randint(total)
         sample_paths = []
@@ -93,7 +95,8 @@ def create_sub_volumes(*ls, dataset_name, mode, samples, full_vol_dim, crop_size
         # print(sample_paths)
         while True:
             label_path = sample_paths[-1]
-            crop = find_random_crop_dim(full_vol_dim, crop_size)
+            new_full_vol_dim = nib.load(path).shape
+            crop = find_random_crop_dim(new_full_vol_dim, crop_size)
             full_segmentation_map = img_loader.load_medical_image(label_path, viz3d=True, type='label',
                                                                   crop_size=crop_size,
                                                                   crop=crop)
@@ -202,6 +205,28 @@ def generate_padded_subvolumes(full_volume, kernel_dim=(32, 32, 32)):
 
 
 def find_random_crop_dim(full_vol_dim, crop_size):
+    assert full_vol_dim[0] >= crop_size[0], "crop size is too big"
+    assert full_vol_dim[1] >= crop_size[1], "crop size is too big"
+    assert full_vol_dim[2] >= crop_size[2], "crop size is too big"
+
+    if full_vol_dim[0] == crop_size[0]:
+        slices = crop_size[0]
+    else:
+        slices = np.random.randint(full_vol_dim[0] - crop_size[0])
+
+    if full_vol_dim[1] == crop_size[1]:
+        w_crop = crop_size[1]
+    else:
+        w_crop = np.random.randint(full_vol_dim[1] - crop_size[1])
+
+    if full_vol_dim[2] == crop_size[2]:
+        h_crop = crop_size[2]
+    else:
+        h_crop = np.random.randint(full_vol_dim[2] - crop_size[2])
+
+    return (slices, w_crop, h_crop)
+
+def find_random_crop_dim_new(img_size, crop_size):
     assert full_vol_dim[0] >= crop_size[0], "crop size is too big"
     assert full_vol_dim[1] >= crop_size[1], "crop size is too big"
     assert full_vol_dim[2] >= crop_size[2], "crop size is too big"
