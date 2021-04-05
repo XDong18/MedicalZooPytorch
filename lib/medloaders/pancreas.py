@@ -92,7 +92,8 @@ from lib.medloaders.medical_loader_utils import get_viz_set, create_sub_volumes
     
 
 class Pancreas(Dataset):
-    def __init__(args,
+    def __init__(self,
+                args,
                 mode,
                 crop_dim=(32, 32, 32),
                 split_id=1,
