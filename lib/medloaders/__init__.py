@@ -128,11 +128,9 @@ def generate_datasets(args, path='.././datasets'):
     elif args.dataset_name == 'pancreas':
         total_data = 282
         split_idx = int(split_percent * total_data)
-        train_loader = Pancreas(args, 'train',
-                         crop_dim=args.dim, split_id=split_idx, samples=samples_train)
+        train_loader = Pancreas(args, 'train', split_id=split_idx, samples=samples_train)
 
-        val_loader = Pancreas(args, 'val',
-                         crop_dim=args.dim, split_id=split_idx, samples=samples_val)
+        val_loader = Pancreas(args, 'val', split_id=split_idx, samples=samples_val)
 
 
     training_generator = DataLoader(train_loader, **params)

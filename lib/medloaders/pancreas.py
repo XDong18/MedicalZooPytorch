@@ -109,7 +109,7 @@ class Pancreas(Dataset):
         self.threshold = args.threshold
         self.normalization = args.normalization
         self.augmentation = args.augmentation
-        self.crop_size = crop_dim
+        self.crop_size = args.dim
 
         self.list = []
         self.samples = samples
