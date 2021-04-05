@@ -201,10 +201,10 @@ def select_full_volume_for_infer(args, path='.././datasets'):
     elif args.dataset_name == "brats2018":
         total_data = 244
         split_idx = int(split_percent * total_data)
-        train_loader = MICCAIBraTS2018('train', dataset_path=path, classes=args.classes, crop_dim=args.dim,
+        train_loader = MICCAIBraTS2018('train', classes=args.classes, crop_dim=args.dim,
                                        split_idx=split_idx, samples=samples_train)
 
-        val_loader = MICCAIBraTS2018('val', dataset_path=path, classes=args.classes, crop_dim=args.dim,
+        val_loader = MICCAIBraTS2018('val', classes=args.classes, crop_dim=args.dim,
                                      split_idx=split_idx,
                                      samples=samples_val)
 

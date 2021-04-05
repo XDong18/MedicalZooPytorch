@@ -94,14 +94,13 @@ from lib.medloaders.medical_loader_utils import get_viz_set, create_sub_volumes
 class Pancreas(Dataset):
     def __init__(args,
                 mode,
-                dataset_path,
                 anno_file,
                 crop_dim=(32, 32, 32),
                 split_id=1,
                 samples=1000,
     ):
         self.mode = mode
-        self.root = str(dataset_path)
+        self.root = args.path
         self.CLASSES = 3
 
         # TODO fix 1. full_vol_dim is not a constanr
