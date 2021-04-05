@@ -166,11 +166,11 @@ class Pancreas(Dataset):
         # self.test_data = self.annotations['test']
 
         self.train_img_list = sorted([
-            osp.join(self.root, data['image']) for data in self.train_data
+            osp.join(self.root, data['image'][2:]) for data in self.train_data
         ])
 
         self.train_seg_list = sorted([
-            osp.join(self.root, data['label']) for data in self.train_data
+            osp.join(self.root, data['label'][2:]) for data in self.train_data
         ])
 
         # SELF.OUT: self.annotations, self.train_data, self.train_img_list, self.train_seg_list
