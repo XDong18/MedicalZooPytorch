@@ -55,7 +55,7 @@ def get_arguments():
     parser.add_argument('--lr', default=1e-2, type=float,
                         help='learning rate (default: 1e-3)')
     parser.add_argument('--cuda', action='store_true', default=True)
-    parser.add_argument('--loadData', default=True)
+    parser.add_argument('--loadData', action='store_true', default=False)
     parser.add_argument('--resume', default='', type=str, metavar='PATH',
                         help='path to latest checkpoint (default: none)')
     parser.add_argument('--model', type=str, default='DENSEVOXELNET',

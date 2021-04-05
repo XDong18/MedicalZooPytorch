@@ -98,6 +98,7 @@ class Pancreas(Dataset):
                 split_id=1,
                 samples=1000,
     ):
+        load = args.loadData
         self.mode = mode
         self.root = args.path
         self.CLASSES = 3
