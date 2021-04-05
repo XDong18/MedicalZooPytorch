@@ -11,6 +11,7 @@ from .iseg2019 import MRIDatasetISEG2019
 from .ixi_t1_t2 import IXIMRIdataset
 from .miccai_2019_pathology import MICCAI2019_gleason_pathology
 from .mrbrains2018 import MRIDatasetMRBRAINS2018
+from .pancreas import Pancreas
 
 
 def generate_datasets(args, path='.././datasets'):
@@ -123,6 +124,17 @@ def generate_datasets(args, path='.././datasets'):
 
         val_loader = COVID_Seg_Dataset(mode='val', dataset_path=path, crop_dim=args.dim,
                                        fold=0, samples=samples_val)
+    
+    elif args.dataset_name == 'pancreas':
+        total_data = 282
+        split_idx = int(split_percent * total_data)
+        train_loader = Pancreas(args, 'train', dataset_path=path, anno_file=args.anno_file,
+                         crop_dim=args.dim, split_id=split_idx, samples=samples_train)
+
+        val_loader = Pancreas(args, 'val', dataset_path=path, anno_file=args.anno_file,
+                         crop_dim=args.dim, split_id=split_idx, samples=samples_val)
+
+
     training_generator = DataLoader(train_loader, **params)
     val_generator = DataLoader(val_loader, **params)
 
