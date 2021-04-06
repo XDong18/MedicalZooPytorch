@@ -128,7 +128,7 @@ class Pancreas(Dataset):
             ## load pre-generated data
             self.list = utils.load_list(self.save_name)
             self._load_data_annotations(args.anno_file)
-            self.affine = img_loader.load_affine_matrix(train_img_list[0])
+            self.affine = img_loader.load_affine_matrix(self.train_img_list[0])
             return
         
         self._load_data_annotations(args.anno_file)
