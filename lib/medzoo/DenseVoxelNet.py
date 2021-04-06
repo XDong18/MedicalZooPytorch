@@ -118,9 +118,10 @@ class DenseVoxelNet(BaseModel):
                                    growth_rate=12)
         self.up_block = _Upsampling(self.dense_2_out_features, self.up_out_features)
         self.conv_final = nn.Conv3d(self.up_out_features, classes, kernel_size=1, padding=0, bias=False)
-        self.transpose = nn.ConvTranspose3d(self.dense_1_out_features, self.up_out_features, kernel_size=2, padding=0,
-                                            output_padding=0,
-                                            stride=2)
+        # TODO put Auxiliary mid-layer prediction aside temp
+        # self.transpose = nn.ConvTranspose3d(self.dense_1_out_features, self.up_out_features, kernel_size=2, padding=0,
+        #                                     output_padding=0,
+        #                                     stride=2)
 
     def forward(self, x):
         # Main network path
@@ -132,19 +133,24 @@ class DenseVoxelNet(BaseModel):
         y1 = self.conv_final(x)
 
         # Auxiliary mid-layer prediction, kind of long-skip connection
-        t = self.transpose(t)
-        y2 = self.conv_final(t)
-        return y1, y2
+        # t = self.transpose(t)
+        # y2 = self.conv_final(t)
+        # TODO put Auxiliary mid-layer prediction aside temp
+        # return y1, y2
+        return y1
 
     def test(self, device='cpu'):
         a = torch.rand(1, self.in_channels, 8, 8, 8)
         ideal_out = torch.rand(1, self.classes, 8, 8, 8)
         summary(self.to(torch.device(device)), (self.in_channels, 8, 8, 8), device=device)
-        b, c = self.forward(a)
+        # TODO put Auxiliary mid-layer prediction aside temp
+        # b, c = self.forward(a)
+        b = self.forward(a)
         import torchsummaryX
         torchsummaryX.summary(self, a.to(device))
         assert ideal_out.shape == b.shape
-        assert ideal_out.shape == c.shape
+        # TODO put Auxiliary mid-layer prediction aside temp
+        # assert ideal_out.shape == c.shape
         print("Test DenseVoxelNet is complete")
 
 # model = DenseVoxelNet(in_channels=1, classes=3)
