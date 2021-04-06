@@ -60,6 +60,8 @@ class Trainer:
             input_tensor, target = prepare_input(input_tuple=input_tuple, args=self.args)
             input_tensor.requires_grad = True
             output = self.model(input_tensor)
+            print("target:\n", target)
+            print("output:\n", output)
             loss_dice, per_ch_score = self.criterion(output, target)
             loss_dice.backward()
             self.optimizer.step()
