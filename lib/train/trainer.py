@@ -32,6 +32,7 @@ class Trainer:
 
     def training(self):
         for epoch in range(self.start_epoch, self.args.nEpochs):
+            print(f"training epoch: {epoch}")
             self.train_epoch(epoch)
 
             if self.do_validation:
