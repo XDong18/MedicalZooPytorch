@@ -5,4 +5,5 @@ python train_pancreas.py --dataset_name pancreas \
 --anno_file /shared/xudongliu/pancreas/Task07_Pancreas/dataset.json \
 --loadData \
 --samples_train 5 \
---samples_val 2
+--samples_val 2 \
+--nEpochs 5
